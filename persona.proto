@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package vaxi;
+
+message Persona{
+	string nombre = 1;
+	string apellido = 2;
+	string email = 3;
+}
+
+message PersonaRequest {
+	Persona persona = 1;
+}
+
+message PersonaResponse {
+	string resultado = 1;
+}
+
+message ServerMultiplePersonaRequest {
+	Persona persona = 1;
+}
+
+message ServerMultiplePersonaResponse {
+	string resultado = 1;
+}
+
+message ClientMultiplePersonaRequest {
+	Persona persona = 1;
+}
+
+message ClientMultiplePersonaResponse {
+	string resultado = 1;
+}
+
+message BidireccionalPersonaRequest {
+	Persona persona = 1;
+}
+
+message BidireccionalPersonaResponse {
+	string resultado = 1;
+}
+
+
+service PersonaService{
+	//gRPC Unary
+	rpc RegistroPersona(PersonaRequest) returns (PersonaResponse){}
+
+	//gRPC Server Streaming
+	rpc RegistroPersonaServidorMultiple(ServerMultiplePersonaRequest) returns (stream ServerMultiplePersonaResponse){}
+
+	//gRPC Client Streaming
+	rpc RegistroPersonaClienteMultiple(stream ClientMultiplePersonaRequest) returns (ClientMultiplePersonaResponse){}
+
+	//gRPC Bidireccional Streaming
+	rpc RegistroPersonaBidireccional(stream BidireccionalPersonaRequest) returns (stream BidireccionalPersonaResponse){}
+}
